@@ -12,18 +12,24 @@ export class ShoppingListService {
 	getIngredients() {
 		return this.ingredients.slice();
 	}
-	addIngredient(ingredient: Ingredient) {
-		this.ingredients.push(ingredient);
-		this.ingredientsChanged.emit(this.ingredients.slice());
-	}
+	// addIngredient(ingredient: Ingredient) {
+	// 	this.ingredients.push(ingredient);
+	// 	this.ingredientsChanged.emit(this.ingredients.slice());
+	// }
 	addIngredients(ingredients: Ingredient[]) {
-		// ingredients.forEach(ingredient => {
-		// 	this.ingredients.push(ingredient);
-		// }); this works fine but max used spread operator ¬
-		this.ingredients.push(...ingredients);
+		ingredients.forEach(ingredientToAdd => {
+			const index = this.ingredients.findIndex(ing => ing.name === ingredientToAdd.name);
+			if (index === -1) {
+				this.ingredients.push(ingredientToAdd);
+			} else {
+				this.ingredients[index].amount += ingredientToAdd.amount;
+			}
+		});
 		this.ingredientsChanged.emit(this.ingredients.slice());
+		// this ^ works fine but max used spread operator > this.ingredients.push(...ingredients);
+		// though you can't check for duplicates pushing the array all at once
 	}
-	// below there's a solution to not add duplicate ingredients
+	// below it's the original solution to avoid duplicates posted by Jost
 	// addIngredient(ingredient: Ingredient, publishChanges = true) {
 	// 	const index = this.ingredients.findIndex(ing => ing.name === ingredient.name);
 	// 	if (index === -1) { 
