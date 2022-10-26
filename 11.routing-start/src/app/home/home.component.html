@@ -1,3 +1,9 @@
 <h4>Welcome to Server Manager 4.0</h4>
 <p>Manage your Servers and Users.</p>
 <button class="btn btn-primary" (click)="onLoadServers()">Load Servers</button>
+<hr>
+<button class="btn btn-primary" (click)="onLoadServer(1)">Load Server 1</button>
+<p>This button passes id, queryParams and fragment to the route so we can programatically navigate to it</p>
+<hr>
+<button class="btn btn-default" (click)="onLogin()">Login</button>
+<button class="btn btn-danger" (click)="onLogout()">Logout</button>
