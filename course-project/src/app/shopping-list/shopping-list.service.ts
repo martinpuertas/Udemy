@@ -1,9 +1,10 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { Ingredient } from "../shared/ingredient.model";
 
 @Injectable()
 export class ShoppingListService {
-	ingredientsChanged = new EventEmitter<Ingredient[]>();
+	ingredientsChanged = new Subject<Ingredient[]>();
 
 	private   ingredients: Ingredient[] = [
 		new Ingredient('Apples', 5),
@@ -25,7 +26,7 @@ export class ShoppingListService {
 				this.ingredients[index].amount += ingredientToAdd.amount;
 			}
 		});
-		this.ingredientsChanged.emit(this.ingredients.slice());
+		this.ingredientsChanged.next(this.ingredients.slice());
 		// this ^ works fine but max used spread operator > this.ingredients.push(...ingredients);
 		// though you can't check for duplicates pushing the array all at once
 	}
