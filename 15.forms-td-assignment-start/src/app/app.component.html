@@ -1,6 +1,48 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-group">
+          <label for="subscriptionType">Subscription Type</label>
+          <select id="subscriptionType" class="form-control" name="subscriptionType"
+            [(ngModel)]="subscriptionType">
+            <option value="Basic">Basic</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Pro">Pro</option>
+          </select>
+        </div>
+        <div id="userCredentials" ngModelGroup="userCredentials">
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input id="email" class="form-control" name="email" type="email"
+            [(ngModel)]="mail" required email #email="ngModel">
+            <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email</span>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" class="form-control" name="password" type="password" 
+            [(ngModel)]="password" required #pass="ngModel">
+            <span class="help-block" *ngIf="!pass.valid && pass.touched">Please enter a valid password</span>
+          </div>
+        </div>
+          <br>
+          <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+      </form>
+      <hr>
+      <div class="form-group">
+        <label for="display">Your Data</label>
+        <div id="display">
+          <p id="mailDisplay">
+            Your Mail: {{ mail }}
+          </p>
+          <p id="passDisplay">
+            Your Password: {{ password }}
+          </p>
+          <p id="subscriptionDisplay">
+            Your Subscription: {{ subscriptionType }}
+          </p>
+        </div>
+      </div>
       <!-- Add a Form with the following Inputs (and Validators)
            1) Mail address (should not be empty and should be an email address)
            2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
