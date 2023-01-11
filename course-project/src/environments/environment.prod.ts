@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  fbAPIKey: 'AIzaSyD-xLIsFhOTaT-khlGr01xVQP0yMjsuPIQ'
 };
